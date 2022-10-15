@@ -16,8 +16,16 @@ const UserSchema = new mongoose.Schema(
 			required: true,
 			select: false,
 		},
+		latitude: {
+			type: String,
+		},
+		longitude: {
+			type: String,
+		},
 		profilePicUrl: {
 			type: String,
+			default:
+				"https://res.cloudinary.com/dgcqwvlkj/image/upload/v1665868055/pfp/st_small_507x507-pad_600x600_f8f8f8_jpobdu.jpg",
 		},
 		cloudinaryId: {
 			type: String,

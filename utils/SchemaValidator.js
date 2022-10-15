@@ -25,13 +25,17 @@ const extension = (joi) => ({
 const Joi = BaseJoi.extend(extension);
 
 module.exports.schemas = {
-	userRegisterSchema: Joi.object({
+	userSchema: Joi.object({
 		name: Joi.string().required().escapeHTML(),
 		email: Joi.string().required().email(),
 		password: Joi.string()
 			.required()
 			.pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
 		role: Joi.string().optional().valid("user", "admin", "root"),
+		latitude: Joi.string().required(),
+		longitude: Joi.string().required(),
+		profilePicUrl: Joi.string().optional(),
+		cloudinaryId: Joi.string().optional(),
 	}),
 	userLoginSchema: Joi.object({
 		email: Joi.string().optional().email(),

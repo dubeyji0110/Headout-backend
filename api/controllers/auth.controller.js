@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
+const jwt = require("../../utils/jwt");
 const User = require("../../models/user");
 
 module.exports = {
@@ -39,7 +39,8 @@ module.exports = {
 	},
 	async register(req, res, next) {
 		try {
-			const { name, email, password, role } = req.body;
+			const { name, email, password, role, latitude, longitude } =
+				req.body;
 
 			const user = await User.findOne({ email: email.toLowerCase() });
 			if (user) return res.status(401).send("Email already registered");
@@ -50,23 +51,19 @@ module.exports = {
 				password: await bcrypt.hash(password, 10),
 			};
 			if (role) saveUser.role = role;
+			if (latitude) saveUser.latitude = latitude;
+			if (longitude) saveUser.longitude = longitude;
 
 			const newUser = await new User(saveUser).save();
 
-			jwt.sign(
-				{
-					type: role || "user",
-					userId: newUser._id,
-				},
-				process.env.SECRET,
-				{ expiresIn: "7d" },
-				(err, token) => {
-					if (err) throw err;
-					return res
-						.status(201)
-						.json({ success: true, user: newUser, token });
-				}
-			);
+			const token = jwt.signUser({
+				type: role || "user",
+				userId: newUser._id,
+			});
+
+			return res
+				.status(201)
+				.json({ success: true, token, user: newUser });
 		} catch (error) {
 			console.error(error);
 			return res.status(500).send("Internal Server Error");
