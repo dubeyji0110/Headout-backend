@@ -5,7 +5,7 @@ const productController = require("../controllers/product.controller");
 
 productRouter
 	.post("/", validateBody(schemas.productCreateSchema), productController.createProduct)
-    .delete("/", validateBody(schemas.productDeleteSchema),productController.deleteProduct)
+    .delete("/:productId", validateBody(schemas.productDeleteSchema),productController.deleteProduct)
     .patch("/", validateBody(schemas.productUpdateSchema), productController.updateProduct)
     .get("/all", productController.getAllProducts)
     .get("/user/:userId", productController.getUserProducts)

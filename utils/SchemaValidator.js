@@ -49,7 +49,6 @@ module.exports.schemas = {
 	}),
 	productDeleteSchema: Joi.object({
 		userId: Joi.string().length(24).required(),
-		productId: Joi.string().length(24).required()
 	}),
 	productUpdateSchema: Joi.object({
 		name: Joi.string().optional().escapeHTML(),

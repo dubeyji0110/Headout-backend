@@ -25,7 +25,8 @@ module.exports = {
     },
     async deleteProduct(req, res, next) {
         try {
-            const { productId, userId } = req.body
+            const userId  = req.body.userId
+            const productId = req.params.productId
             const product = await Product.findById(productId)
             if (!product) return res.status(404).send("Product not found");
             if (product.userId == userId) {
