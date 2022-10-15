@@ -47,6 +47,13 @@ module.exports.schemas = {
 		userId: Joi.string().length(24).required(),
 		productId: Joi.string().length(24).required()
 	}),
+	productUpdateSchema: Joi.object({
+		name: Joi.string().optional().escapeHTML(),
+		description: Joi.string().optional().escapeHTML(),
+		image: Joi.string().optional().escapeHTML(),
+		userId: Joi.string().length(24).required(),
+		productId: Joi.string().length(24).required(),
+	}),
 };
 
 module.exports.validateBody = (schema) => {
