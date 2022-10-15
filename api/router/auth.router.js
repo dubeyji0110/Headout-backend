@@ -1,7 +1,14 @@
 const authRouter = require("express").Router();
 
+const { schemas, validateBody } = require("../../utils/SchemaValidator");
 const authController = require("../controllers/auth.controller");
 
-authRouter.get("/", authController.login);
+authRouter
+	.post("/", validateBody(schemas.userLoginSchema), authController.login)
+	.post(
+		"/register",
+		validateBody(schemas.userRegisterSchema),
+		authController.register
+	);
 
 module.exports = authRouter;
