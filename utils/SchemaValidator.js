@@ -41,8 +41,12 @@ module.exports.schemas = {
 		name: Joi.string().required().escapeHTML(),
 		description: Joi.string().optional().escapeHTML(),
 		image: Joi.string().optional().escapeHTML(),
-		userId: Joi.string().required().escapeHTML(),
-	})
+		userId: Joi.string().length(24).required(),
+	}),
+	productDeleteSchema: Joi.object({
+		userId: Joi.string().length(24).required(),
+		productId: Joi.string().length(24).required()
+	}),
 };
 
 module.exports.validateBody = (schema) => {
