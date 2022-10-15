@@ -41,6 +41,23 @@ module.exports.schemas = {
 		email: Joi.string().optional().email(),
 		password: Joi.string().required(),
 	}),
+	productCreateSchema: Joi.object({
+		name: Joi.string().required().escapeHTML(),
+		description: Joi.string().optional().escapeHTML(),
+		image: Joi.string().optional().escapeHTML(),
+		userId: Joi.string().length(24).required(),
+	}),
+	productDeleteSchema: Joi.object({
+		userId: Joi.string().length(24).required(),
+		productId: Joi.string().length(24).required()
+	}),
+	productUpdateSchema: Joi.object({
+		name: Joi.string().optional().escapeHTML(),
+		description: Joi.string().optional().escapeHTML(),
+		image: Joi.string().optional().escapeHTML(),
+		userId: Joi.string().length(24).required(),
+		productId: Joi.string().length(24).required(),
+	}),
 	userUpdateSchema: Joi.object({
 		name: Joi.string().required().escapeHTML(),
 		email: Joi.string().required().email(),
