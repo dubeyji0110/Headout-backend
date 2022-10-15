@@ -1,5 +1,6 @@
 const authRouter = require("express").Router();
 
+const jwt = require("../../utils/jwt");
 const { schemas, validateBody } = require("../../utils/SchemaValidator");
 const authController = require("../controllers/auth.controller");
 
