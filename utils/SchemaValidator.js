@@ -37,6 +37,12 @@ module.exports.schemas = {
 		email: Joi.string().optional().email(),
 		password: Joi.string().required(),
 	}),
+	productCreateSchema: Joi.object({
+		name: Joi.string().required().escapeHTML(),
+		description: Joi.string().optional().escapeHTML(),
+		image: Joi.string().optional().escapeHTML(),
+		userId: Joi.string().required().escapeHTML(),
+	})
 };
 
 module.exports.validateBody = (schema) => {
