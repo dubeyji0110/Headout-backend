@@ -32,6 +32,10 @@ module.exports.schemas = {
 			.required()
 			.pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
 		role: Joi.string().optional().valid("user", "admin", "root"),
+		latitude: Joi.string().required(),
+		longitude: Joi.string().required(),
+		profilePicUrl: Joi.string().optional(),
+		cloudinaryId: Joi.string().optional(),
 	}),
 	userLoginSchema: Joi.object({
 		email: Joi.string().optional().email(),
@@ -46,6 +50,15 @@ module.exports.schemas = {
 	productDeleteSchema: Joi.object({
 		userId: Joi.string().length(24).required(),
 		productId: Joi.string().length(24).required()
+	}),
+	userUpdateSchema: Joi.object({
+		name: Joi.string().required().escapeHTML(),
+		email: Joi.string().required().email(),
+		role: Joi.string().optional().valid("user", "admin", "root"),
+		latitude: Joi.string().required(),
+		longitude: Joi.string().required(),
+		profilePicUrl: Joi.string().optional(),
+		cloudinaryId: Joi.string().optional(),
 	}),
 };
 
