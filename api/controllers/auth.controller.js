@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const jwt = require("../../utils/jwt");
+const JWT = require("jsonwebtoken");
 const User = require("../../models/user");
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
 
 			const loggedUser = await User.findById(user._id);
 
-			jwt.sign(
+			JWT.sign(
 				{
 					type: loggedUser.role || "user",
 					userId: loggedUser._id,
@@ -28,8 +29,8 @@ module.exports = {
 				(err, token) => {
 					if (err) throw err;
 					return res
-						.status(200)
-						.json({ success: true, user: loggedUser, token });
+						.status(201)
+						.json({ success: true, token, user: loggedUser });
 				}
 			);
 		} catch (error) {
@@ -56,14 +57,20 @@ module.exports = {
 
 			const newUser = await new User(saveUser).save();
 
-			const token = jwt.signUser({
-				type: role || "user",
-				userId: newUser._id,
-			});
-
-			return res
-				.status(201)
-				.json({ success: true, token, user: newUser });
+			JWT.sign(
+				{
+					type: saveUser.role || "user",
+					userId: saveUser._id,
+				},
+				process.env.SECRET,
+				{ expiresIn: "7d" },
+				(err, token) => {
+					if (err) throw err;
+					return res
+						.status(201)
+						.json({ success: true, token, user: newUser });
+				}
+			);
 		} catch (error) {
 			console.error(error);
 			return res.status(500).send("Internal Server Error");

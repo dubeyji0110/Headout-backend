@@ -10,7 +10,7 @@ userRouter
 	.patch(
 		"/update",
 		jwt.verifyUser,
-		validateBody(schemas.userSchema),
+		validateBody(schemas.userUpdateSchema),
 		userController.updateUser
 	);
 

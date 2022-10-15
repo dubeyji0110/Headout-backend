@@ -8,7 +8,7 @@ authRouter
 	.post("/", validateBody(schemas.userLoginSchema), authController.login)
 	.post(
 		"/register",
-		validateBody(schemas.userSchema),
+		validateBody(schemas.userRegisterSchema),
 		authController.register
 	);
 

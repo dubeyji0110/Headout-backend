@@ -25,7 +25,7 @@ const extension = (joi) => ({
 const Joi = BaseJoi.extend(extension);
 
 module.exports.schemas = {
-	userSchema: Joi.object({
+	userRegisterSchema: Joi.object({
 		name: Joi.string().required().escapeHTML(),
 		email: Joi.string().required().email(),
 		password: Joi.string()
@@ -40,6 +40,15 @@ module.exports.schemas = {
 	userLoginSchema: Joi.object({
 		email: Joi.string().optional().email(),
 		password: Joi.string().required(),
+	}),
+	userUpdateSchema: Joi.object({
+		name: Joi.string().required().escapeHTML(),
+		email: Joi.string().required().email(),
+		role: Joi.string().optional().valid("user", "admin", "root"),
+		latitude: Joi.string().required(),
+		longitude: Joi.string().required(),
+		profilePicUrl: Joi.string().optional(),
+		cloudinaryId: Joi.string().optional(),
 	}),
 };
 
