@@ -55,7 +55,6 @@ module.exports.schemas = {
 		description: Joi.string().optional().escapeHTML(),
 		image: Joi.string().optional().escapeHTML(),
 		userId: Joi.string().length(24).required(),
-		productId: Joi.string().length(24).required(),
 	}),
 	userUpdateSchema: Joi.object({
 		name: Joi.string().required().escapeHTML(),
